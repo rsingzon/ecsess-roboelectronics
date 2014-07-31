@@ -1,7 +1,7 @@
 /* Source File
  * File:   main.c
  * Author: Raluca
- */* Source File
+ * Source File
  * File:   main.c
  * Author: Raluca
  *
@@ -15,6 +15,7 @@
 #include <xc.h>
 #include <pic16f88.h>
 #include "pic16f88Init.h"
+#include "adc.h"
 
 #pragma config BOREN = OFF, CPD = OFF, CCPMX = RB3, DEBUG = OFF, WRT = OFF, FOSC = INTOSCIO, MCLRE = OFF, WDTE = OFF, CP = OFF, LVP = OFF, PWRTE = OFF
 
@@ -26,10 +27,12 @@
  * 
  */
 int onRamp(int port);
-
+///Finds the distance in cm
+int findDistance();
 void main() {
 
     initPIC16F88();
+    adcInit(0);
     TRISBbits.TRISB2 = 1;
     IR_LED = 1;
     while(1)
@@ -44,10 +47,11 @@ void main() {
             LED = 0;
             //do something else
         }
-        //LED = 1;
-        //__delay_ms(500);
-        //LED = 0;
-        //__delay_ms(500);
+        
+        int distance = findDistance();
+
+        int time = distance*50;
+
     }
     return;
 }
@@ -62,4 +66,12 @@ int onRamp(int port)
     {
         return 0;
     }
+}
+
+int findDistance()
+{
+    int adcValue = adcRead();
+    int voltage = 20*adcValue;
+    int distance = 12000/voltage;
+    return distance;
 }
