@@ -1,0 +1,10 @@
+___awdiv: CODE, 1861 0 91
+_initPIC16F88: CODE, 1660 0 12
+_adcRead: CODE, 1684 0 13
+_main: CODE, 1791 0 70
+__initialization: CODE, 1657 0 0
+_adcInit: CODE, 1952 0 96
+_findDistance: CODE, 1732 0 59
+_onRamp: CODE, 1672 0 12
+___wmul: CODE, 1697 0 35
+Total: 388
