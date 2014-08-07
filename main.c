@@ -23,9 +23,20 @@
 #define LED PORTBbits.RB4
 #define IR_LED PORTBbits.RB3
 #define PHOTO_DIODE PORTBbits.RB2
+
+#define H_1A PORTAbits.RA2
+#define H_2A PORTAbits.RA3
+#define H_3A PORTAbits.RA4
+#define H_4A PORTBbits.RB0
 /*
  * 
  */
+void motorStop();
+void motorLeft();
+void motorRight();
+void motorForward();
+
+
 int onRamp(int port);
 ///Finds the distance in cm
 int findDistance();
@@ -37,6 +48,7 @@ void main() {
     IR_LED = 1;
     while(1)
     {
+        motorLeft();
         if(onRamp(PHOTO_DIODE))
         {
             LED = 1;
@@ -72,6 +84,61 @@ int findDistance()
 {
     int adcValue = adcRead();
     int voltage = 20*adcValue;
-    int distance = 12000/voltage;
-    return distance;
+
+    if(voltage <= 400)
+    {
+        return 30;
+    }
+    else if(voltage >= 3000)
+    {
+        return 3;
+    }
+    else
+    {
+      int distance = 12000/voltage;
+      return distance;
+    }
+    
+}
+
+void motorStop()
+{
+    H_1A = 0;
+    H_2A = 0;
+    H_3A = 0;
+    H_4A = 0;
+    return;
+}
+
+void motorForward()
+{
+    //Left motor
+    H_1A = 0;
+    H_2A = 1;
+
+    //Right motor
+    H_3A = 0;
+    H_4A = 1;
+    return;
+}
+
+void motorRight()
+{
+    H_1A = 1;
+    H_2A  = 0;
+
+    H_3A = 0;
+    H_4A = 1;
+    return;
+}
+
+void motorLeft()
+{
+    H_1A = 0;
+    H_2A = 1;
+
+    H_3A = 1;
+    H_4A = 0;
+
+    return;
 }
