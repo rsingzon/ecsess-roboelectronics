@@ -23,6 +23,7 @@
 #define LED PORTBbits.RB4
 #define IR_LED PORTBbits.RB3
 #define PHOTO_DIODE PORTBbits.RB2
+#define IR_TRANSMITTER PORTBbits.RB1
 
 #define H_1A PORTAbits.RA2
 #define H_2A PORTAbits.RA3
@@ -36,6 +37,8 @@ void motorLeft();
 void motorRight();
 void motorForward();
 
+void transmitPattern();
+void transmitBit(int bitValue);
 
 int onRamp(int port);
 ///Finds the distance in cm
@@ -48,7 +51,8 @@ void main() {
     IR_LED = 1;
     while(1)
     {
-        motorLeft();
+        //motorLeft();
+        transmitPattern();
         if(onRamp(PHOTO_DIODE))
         {
             LED = 1;
@@ -140,5 +144,30 @@ void motorLeft()
     H_3A = 1;
     H_4A = 0;
 
+    return;
+}
+
+void transmitPattern()
+{
+    transmitBit(1);
+    transmitBit(1);
+
+    transmitBit(0);
+    transmitBit(1);
+    transmitBit(0);
+    transmitBit(1);
+    transmitBit(1);
+    transmitBit(0);
+    transmitBit(1);
+    transmitBit(0);
+
+    transmitBit(0);
+    transmitBit(0);
+}
+
+void transmitBit(int bitValue)
+{
+    IR_TRANSMITTER = bitValue;
+    __delay_us(250);
     return;
 }
