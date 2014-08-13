@@ -20,9 +20,13 @@
 #pragma config BOREN = OFF, CPD = OFF, CCPMX = RB3, DEBUG = OFF, WRT = OFF, FOSC = INTOSCIO, MCLRE = OFF, WDTE = OFF, CP = OFF, LVP = OFF, PWRTE = OFF
 
 #define _XTAL_FREQ 4000000
-#define LED PORTBbits.RB4
-#define IR_LED PORTBbits.RB3
-#define PHOTO_DIODE PORTBbits.RB2
+#define STATUS_LED PORTBbits.RB4
+
+#define LEFT_IR_LED PORTBbits.RB3
+#define LEFT_PHOTO_DIODE PORTBbits.RB2
+#define RIGHT_IR_LED PORTAbits.RA6
+#define RIGHT_PHOTO_DIODE PORTAbits.RA7
+
 #define IR_TRANSMITTER PORTBbits.RB1
 
 #define H_1A PORTAbits.RA2
@@ -48,19 +52,19 @@ void main() {
     initPIC16F88();
     adcInit(0);
     TRISBbits.TRISB2 = 1;
-    IR_LED = 1;
+    LEFT_IR_LED = 1;
     while(1)
     {
         //motorLeft();
         transmitPattern();
-        if(onRamp(PHOTO_DIODE))
+        if(onRamp(LEFT_PHOTO_DIODE))
         {
-            LED = 1;
+            STATUS_LED = 1;
             //do something
         }
         else
         {
-            LED = 0;
+            STATUS_LED = 0;
             //do something else
         }
         
