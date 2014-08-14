@@ -33,6 +33,8 @@
 #define H_2A PORTAbits.RA3
 #define H_3A PORTAbits.RA4
 #define H_4A PORTBbits.RB0
+
+#define DISTANCE_POWER PORTAbits.RA1
 /*
  * 
  */
@@ -52,26 +54,33 @@ void main() {
     initPIC16F88();
     adcInit(0);
     TRISBbits.TRISB2 = 1;
+    STATUS_LED = 1;
     LEFT_IR_LED = 1;
+    RIGHT_IR_LED = 1;
+
+    __delay_ms(500);
+    motorForward();
+    
+
     while(1)
     {
-        //motorLeft();
-        transmitPattern();
-        if(onRamp(LEFT_PHOTO_DIODE))
-        {
-            STATUS_LED = 1;
-            //do something
-        }
-        else
-        {
-            STATUS_LED = 0;
-            //do something else
-        }
-        
         int distance = findDistance();
+        if(distance<=15){
+            motorStop();
+            transmitPattern();
+            transmitPattern();
+            transmitPattern();
+        }
 
-        int time = distance*50;
+        else if(!onRamp(LEFT_PHOTO_DIODE))
+            motorRight();
 
+        else if(!onRamp(RIGHT_PHOTO_DIODE))
+            motorLeft();
+
+        else
+            motorForward();
+        
     }
     return;
 }
@@ -90,7 +99,10 @@ int onRamp(int port)
 
 int findDistance()
 {
+    DISTANCE_POWER = 1;
+    __delay_ms(50);
     int adcValue = adcRead();
+    DISTANCE_POWER = 0;
     int voltage = 20*adcValue;
 
     if(voltage <= 400)
@@ -153,6 +165,10 @@ void motorLeft()
 
 void transmitPattern()
 {
+    LEFT_IR_LED = 0;
+    RIGHT_IR_LED = 0;
+    DISTANCE_POWER = 0;
+
     transmitBit(1);
     transmitBit(1);
 
@@ -160,10 +176,10 @@ void transmitPattern()
     transmitBit(1);
     transmitBit(0);
     transmitBit(1);
-    transmitBit(1);
     transmitBit(0);
     transmitBit(1);
     transmitBit(0);
+    transmitBit(1);
 
     transmitBit(0);
     transmitBit(0);
