@@ -64,6 +64,7 @@ void main() {
 
     while(1)
     {
+       
         int distance = findDistance();
         if(distance<=15){
             motorStop();
@@ -81,6 +82,7 @@ void main() {
         else
             motorForward();
         
+        
     }
     return;
 }
@@ -89,11 +91,11 @@ int onRamp(int port)
 {
     if(port)
     {
-        return 1;
+        return 0;
     }
     else
     {
-        return 0;
+        return 1;
     }
 }
 
