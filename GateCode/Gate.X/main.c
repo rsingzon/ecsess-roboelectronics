@@ -1,6 +1,6 @@
 /* Source File
  * File:   main.c
- * Author: Joshua
+ * Author: Dirk, Joshua
  * Source File
  *
  * Created on August 16, 2014
@@ -18,16 +18,15 @@
 #define _XTAL_FREQ 4000000
 #define TIM2_PRESCALE 16 /**<Sets the Timer 2 prescale value, only 1, 4, and 16 are valid values*/
 
-#define STATUS_LED PORTBbits.RB0
-
-#define SWITCH_1 PORTBbits.RB4
+#define SWITCH_1 PORTBbits.RB2
 #define SWITCH_2 PORTBbits.RB1
 
 #define MOTOR_PWM PORTBbits.RB3
-#define H1_A PORTAbits.RA0
-#define H2_A PORTAbits.RA1
 
-#define IR_RECEIVER PORTBbits.RB5
+#define H1_A PORTAbits.RA2
+#define H2_A PORTAbits.RA3
+
+#define IR_RECEIVER PORTBbits.RB0
 
 void init();
 int openPWM(unsigned int);
@@ -78,8 +77,8 @@ int main() {
 void init()
 {
     OSCCON = 0b01101110;
-    TRISA = 255;
-    TRISB = 0b01011000;
+    TRISA = 0b11001111;
+    TRISB = 0b11100000;
     ANSEL = 0;
     PORTA = 0;
     PORTB = 0;
