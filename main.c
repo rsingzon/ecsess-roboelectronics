@@ -54,6 +54,7 @@ void main() {
     initPIC16F88();
     adcInit(0);
     TRISBbits.TRISB2 = 1;
+    TRISAbits.TRISA7 = 1;
     STATUS_LED = 1;
     LEFT_IR_LED = 1;
     RIGHT_IR_LED = 1;
@@ -64,7 +65,6 @@ void main() {
 
     while(1)
     {
-       
         int distance = findDistance();
         if(distance<=15){
             motorStop();
@@ -97,7 +97,7 @@ int onRamp(int port)
     {
         return 1;
     }
-}
+} 
 
 int findDistance()
 {
@@ -185,6 +185,9 @@ void transmitPattern()
 
     transmitBit(0);
     transmitBit(0);
+
+    LEFT_IR_LED = 1;
+    RIGHT_IR_LED = 1;
 }
 
 void transmitBit(int bitValue)
