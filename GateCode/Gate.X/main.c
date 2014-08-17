@@ -45,7 +45,7 @@ int main() {
     OPTION_REG = 0;
     int foundPattern = 0;
     while(1) {
-        if(readReciever(IR_RECEIVER));
+        /*if(readReciever(IR_RECEIVER));
         {
             for(int i = 0; i < 8; i++)
             {
@@ -63,7 +63,16 @@ int main() {
         if(foundPattern)
         {
             openGate();
-        }
+        }*/
+	
+        closePWM();
+        MOTOR_PWM = 1;
+        H1_A = 1;
+        H2_A = 0;
+
+
+
+
     }
     return (EXIT_SUCCESS);
 }
