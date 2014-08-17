@@ -65,10 +65,7 @@ int main() {
             openGate();
         }*/
 	
-        closePWM();
-        MOTOR_PWM = 1;
-        H1_A = 1;
-        H2_A = 0;
+        openGate();
 
 
 
@@ -86,8 +83,8 @@ int main() {
 void init()
 {
     OSCCON = 0b01101110;
-    TRISA = 0b11001111;
-    TRISB = 0b11100000;
+    TRISA = 0b11110011;
+    TRISB = 0b00000111;
     ANSEL = 0;
     PORTA = 0;
     PORTB = 0;

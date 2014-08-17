@@ -1,7 +1,6 @@
-_init: CODE, 1644 0 17
-_openPWM: CODE, 1699 0 63
-_readReciever: CODE, 1834 0 90
-_main: CODE, 1924 0 124
-__initialization: CODE, 1678 0 18
-_openGate: CODE, 1762 0 72
-Total: 384
+_init: CODE, 1880 0 17
+_openPWM: CODE, 1936 0 52
+_main: CODE, 1897 0 19
+__initialization: CODE, 1916 0 17
+_openGate: CODE, 1988 0 60
+Total: 165
