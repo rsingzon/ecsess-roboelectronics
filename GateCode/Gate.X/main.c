@@ -171,13 +171,15 @@ int setDCPWM(unsigned int dutyCycle)
 int readReciever(unsigned int port)
 {
     int value1 = port;
-    __delay_us(250);
+    __delay_us(1000);
     int value2 = port;
     if(value1 ==1 && value2 == 1)
     {
+        __delay_us(1000);
         for(int i = 0; i < 8; i++)
         {
             values[i] = port;
+            __delay_us(1000);
         }
         return 1;
     }
