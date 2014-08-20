@@ -193,6 +193,6 @@ void transmitPattern()
 void transmitBit(int bitValue)
 {
     IR_TRANSMITTER = bitValue;
-    __delay_us(250);
+    __delay_us(1000);
     return;
 }
