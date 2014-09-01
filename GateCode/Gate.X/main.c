@@ -18,7 +18,7 @@
 #define _XTAL_FREQ 4000000
 #define TIM2_PRESCALE 16 /**<Sets the Timer 2 prescale value, only 1, 4, and 16 are valid values*/
 
-#define SWITCH_1 PORTBbits.RB2
+#define SWITCH_1 PORTBbits.RB0
 #define SWITCH_2 PORTBbits.RB1
 
 #define MOTOR_PWM PORTBbits.RB3
@@ -26,7 +26,7 @@
 #define H1_A PORTAbits.RA2
 #define H2_A PORTAbits.RA3
 
-#define IR_RECEIVER PORTBbits.RB0
+#define IR_RECEIVER PORTBbits.RB2
 
 void init();
 int openPWM(unsigned int);
@@ -66,9 +66,6 @@ int main() {
         }*/
 	
         openGate();
-
-
-
 
     }
     return (EXIT_SUCCESS);
