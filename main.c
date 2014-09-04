@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <xc.h>
 #include <pic16f88.h>
-#include "pic16f88Init.h"
+#include "pic16f88init.h"
 #include "adc.h"
 
 #pragma config BOREN = OFF, CPD = OFF, CCPMX = RB3, DEBUG = OFF, WRT = OFF, FOSC = INTOSCIO, MCLRE = OFF, WDTE = OFF, CP = OFF, LVP = OFF, PWRTE = OFF
@@ -22,12 +22,12 @@
 #define _XTAL_FREQ 4000000
 #define STATUS_LED PORTBbits.RB4
 
-#define LEFT_IR_LED PORTBbits.RB3
+#define LEFT_IR_LED PORTBbits.RB5
 #define LEFT_PHOTO_DIODE PORTBbits.RB2
 #define RIGHT_IR_LED PORTAbits.RA6
 #define RIGHT_PHOTO_DIODE PORTAbits.RA7
 
-#define IR_TRANSMITTER PORTBbits.RB1
+#define IR_TRANSMITTER PORTBbits.RB3
 
 #define H_1A PORTAbits.RA2
 #define H_2A PORTAbits.RA3
