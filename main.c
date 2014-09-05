@@ -146,21 +146,21 @@ void motorForward()
 
 void motorRight()
 {
-    H_1A = 1;
-    H_2A  = 0;
-
-    H_3A = 0;
-    H_4A = 1;
-    return;
-}
-
-void motorLeft()
-{
     H_1A = 0;
     H_2A = 1;
 
     H_3A = 1;
     H_4A = 0;
+    return;
+}
+
+void motorLeft()
+{
+    H_1A = 1;
+    H_2A = 0;
+
+    H_3A = 0;
+    H_4A = 1;
 
     return;
 }
