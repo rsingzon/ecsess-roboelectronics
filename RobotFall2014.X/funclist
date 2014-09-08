@@ -1,16 +1,17 @@
-___awdiv: CODE, 1544 0 91
-_initPIC16F88: CODE, 1460 0 12
-_adcRead: CODE, 1496 0 13
-_motorStop: CODE, 1439 0 7
-_motorRight: CODE, 1446 0 7
-_motorForward: CODE, 1432 0 7
-_main: CODE, 1932 0 116
-_motorLeft: CODE, 1453 0 7
-_transmitPattern: CODE, 1635 0 93
-__initialization: CODE, 1429 0 0
-_adcInit: CODE, 1728 0 96
-_findDistance: CODE, 1824 0 108
-_onRamp: CODE, 1484 0 12
-___wmul: CODE, 1509 0 35
-_transmitBit: CODE, 1472 0 12
-Total: 616
+___awdiv: CODE, 1541 0 91
+_initPIC16F88: CODE, 1403 0 18
+_adcRead: CODE, 1390 0 13
+_motorStop: CODE, 1371 0 7
+_openPWM: CODE, 1482 0 59
+_motorRight: CODE, 1364 0 7
+_motorForward: CODE, 1350 0 7
+_main: CODE, 1929 0 116
+_motorLeft: CODE, 1357 0 7
+_transmitPattern: CODE, 1632 0 93
+__initialization: CODE, 2045 0 0
+_adcInit: CODE, 1725 0 96
+_findDistance: CODE, 1821 0 108
+_onRamp: CODE, 1378 0 12
+___wmul: CODE, 1447 0 35
+_transmitBit: CODE, 1421 0 26
+Total: 695
