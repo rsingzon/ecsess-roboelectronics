@@ -16,6 +16,7 @@
 #include <pic16f88.h>
 #include "pic16f88init.h"
 #include "adc.h"
+#include "pwm.h"
 
 #pragma config BOREN = OFF, CPD = OFF, CCPMX = RB3, DEBUG = OFF, WRT = OFF, FOSC = INTOSCIO, MCLRE = OFF, WDTE = OFF, CP = OFF, LVP = OFF, PWRTE = OFF
 
@@ -27,7 +28,8 @@
 #define RIGHT_IR_LED PORTAbits.RA6
 #define RIGHT_PHOTO_DIODE PORTAbits.RA7
 
-#define IR_TRANSMITTER PORTBbits.RB3
+//Note, the IR carrier must be on PORTBbits.RB3
+#define IR_CARRIER PORTBbits.RB3
 
 #define H_1A PORTAbits.RA2
 #define H_2A PORTAbits.RA3
@@ -58,7 +60,6 @@ void main() {
     STATUS_LED = 1;
     LEFT_IR_LED = 1;
     RIGHT_IR_LED = 1;
-
     __delay_ms(500);
     motorForward();
     
@@ -81,8 +82,6 @@ void main() {
 
         else
             motorForward();
-        
-        
     }
     return;
 }
@@ -192,7 +191,8 @@ void transmitPattern()
 
 void transmitBit(int bitValue)
 {
-    IR_TRANSMITTER = bitValue;
-    __delay_us(1000);
+    CCP1M2 = bitValue; //Enable or disable PWM
+    CCP1M3 = bitValue;
+    __delay_us(1000); //Data rate
     return;
 }
