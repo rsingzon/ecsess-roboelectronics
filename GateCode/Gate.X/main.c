@@ -64,9 +64,20 @@ int main() {
         {
             openGate();
         }*/
-	
         openGate();
-
+            /*if(!SWITCH_1) {
+                H1_A = 1;
+            }
+            if(!SWITCH_2) {
+                H2_A = 1;
+            }
+            H1_A = 0;
+            H2_A = 0;*/
+        //if(!IR_RECEIVER) {
+            //openGate;
+            //H1_A = 0;
+            //H2_A = 1;
+       // }
     }
     return (EXIT_SUCCESS);
 }
@@ -194,7 +205,7 @@ void openGate()
     H2_A = 0;
 
     //check that open switch isn't pressed
-    while(!SWITCH_1);
+    while(SWITCH_1);
     //turn off motor
     H1_A = 0;
     H2_A = 0;
@@ -210,7 +221,7 @@ void openGate()
     H2_A = 1;
 
     //Check that the close switch isn't pressed
-    while(!SWITCH_2);
+    while(SWITCH_2);
     //turn off motor
     H1_A = 0;
     H2_A = 0;
