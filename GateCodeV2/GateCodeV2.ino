@@ -39,7 +39,7 @@ void setup() {
   pinMode(motorLeft, OUTPUT);
   pinMode(motorRight, OUTPUT);
   Serial.begin(9600);
-  analogWrite(pwm, 128);
+  analogWrite(pwm, 64);
 }
 
 // the loop routine runs over and over again forever:
