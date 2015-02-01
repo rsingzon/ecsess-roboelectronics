@@ -1,0 +1,5 @@
+_initPIC16F88: CODE, 1968 0 18
+_openPWM: CODE, 1986 0 59
+_main: CODE, 1964 0 4
+__initialization: CODE, 2045 0 0
+Total: 81
