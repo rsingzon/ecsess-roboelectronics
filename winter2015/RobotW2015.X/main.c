@@ -8,9 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
+#include <math.h>
 #include <pic16f88.h>
+#include "../adc.h"
 
 #pragma config BOREN = OFF, CPD = OFF, CCPMX = RB3, DEBUG = OFF, WRT = OFF, FOSC = INTOSCIO, MCLRE = OFF, WDTE = OFF, CP = OFF, LVP = OFF, PWRTE = OFF
+
+#define TRUE 1
+#define FALSE 0
 
 #define _XTAL_FREQ 4000000
 #define STATUS_LED PORTBbits.RB4
@@ -25,6 +30,14 @@
 // Right Motor (4 is forward, 3 is backward)
 #define H_3A PORTAbits.RA4
 #define H_4A PORTBbits.RB0
+
+#define ACCELEROMETER_X 0
+#define ACCELEROMETER_Y 1
+#define ACCELEROMETER_Z 2
+
+#define CONVERSION_TO_DEG 57.29577951308233 /**<The scalling factor from radians to degrees*/
+#define FORWARD_THRESHOLD 5
+#define REVERSE_THRESHOLD 5
 
 // Prototypes
 void motorStop();
@@ -43,6 +56,7 @@ void main() {
     // Initialization
     init();
     //adcInit(0);   // analog input
+   /*
     STATUS_LED = 1;
     H_2A = 0;
     H_4A = 0;
@@ -68,6 +82,9 @@ void main() {
                 H_3A = 0;
         }
     }
+    */
+
+    adcRead();
 }
 
 // Function for Initialising IOs
@@ -172,4 +189,47 @@ void motorLeft()
     // Right Motor
     H_3A = 0;
     H_4A = 1;
+}
+
+float computePitch(int xValue, int yValue, int zValue){
+    float pitch = 0;
+
+    pitch = xValue*xValue + zValue*zValue; //sqaure denominator
+    pitch = sqrt(pitch); //Square root denominator
+    pitch = yValue / pitch; //Divide by numerator
+    pitch = atan(pitch); //Take arctan
+
+    pitch = (float)(pitch * CONVERSION_TO_DEG);
+    return pitch;
+}
+
+int checkIfBalanced(){
+
+    int xValue, yValue, zValue;
+    float angle;
+    //Read the X axis
+    adcInit(ACCELEROMETER_X);
+    xValue = adcRead();
+
+    //Read the Y axis
+    adcInit(ACCELEROMETER_Y);
+    yValue = adcRead();
+
+    //Read the Z axis
+    adcInit(ACCELEROMETER_Z);
+    zValue = adcRead();
+
+    angle = computePitch(xValue, yValue, zValue);
+
+    //check what the angle is and if we need to go forward or backward
+    if(angle > FORWARD_THRESHOLD){
+        motorForward();
+        return FALSE;
+    }else if(angle < REVERSE_THRESHOLD){
+        motorBackward();
+        return FALSE;
+    }else{
+        motorStop();
+        return TRUE;
+    }
 }
