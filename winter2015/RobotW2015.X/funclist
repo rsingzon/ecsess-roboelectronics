@@ -1,4 +1,14 @@
-_init: CODE, 2015 0 14
-_main: CODE, 2029 0 19
-__initialization: CODE, 2012 0 0
-Total: 33
+_init: CODE, 1846 0 14
+_adcRead: CODE, 1833 0 13
+__stringtab: STRING, 2 0 6
+_motorStop: CODE, 1826 0 7
+_motorRight: CODE, 1819 0 7
+_motorForward: CODE, 1805 0 7
+_main: CODE, 1860 0 87
+_motorBackward: CODE, 1798 0 7
+atan@coeff_a: STRING, 0 0 26
+atan@coeff_b: STRING, 0 0 41
+_motorLeft: CODE, 1812 0 7
+__initialization: CODE, 2043 0 2
+_adcInit: CODE, 1947 0 96
+Total: 320

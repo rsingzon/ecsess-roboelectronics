@@ -24,7 +24,7 @@
 #define RIGHT_IR PORTAbits.RA7
 
 // Left Motor (1 is forward, 2 is backward)
-#define H_1A PORTAbits.RA2
+#define H_1A PORTBbits.RB1
 #define H_2A PORTAbits.RA3
 
 // Right Motor (4 is forward, 3 is backward)
@@ -39,6 +39,9 @@
 #define FORWARD_THRESHOLD 5
 #define REVERSE_THRESHOLD 5
 
+#define UPPER 0x4D
+#define LOWER 0x47
+
 // Prototypes
 void motorStop();
 void motorLeft();
@@ -48,43 +51,38 @@ void motorBackward();
 
 void init();
 int onRamp(int port);
-//int findDistance();
 
 // Main Program
 void main() {
 
     // Initialization
     init();
-    //adcInit(0);   // analog input
-   /*
-    STATUS_LED = 1;
+    adcInit(ACCELEROMETER_X);
+    STATUS_LED = 0;
     H_2A = 0;
     H_4A = 0;
+    int angle = 0;
 
-    while(1)
-    {
-        // Testing IR
-        if(LEFT_IR == 1)
-        {
-            H_1A = 1;
-        }
-        else
-        {
-            H_1A = 0;
-        }
-
-        if(RIGHT_IR == 1)
-        {
-            H_3A = 1;
-        }
-        else
-        {
-                H_3A = 0;
+    while(1){
+        angle = adcRead();
+        STATUS_LED = 0;
+        if(LEFT_IR == 1 && RIGHT_IR == 0) {
+            motorRight();
+        } else if (LEFT_IR == 0 && RIGHT_IR == 1) {
+            motorLeft();
+        } else if (LEFT_IR == 0 && RIGHT_IR == 0) {
+            motorStop();
+        } else {
+            if(angle > UPPER) {
+                motorForward();
+            } else if (angle < LOWER) {
+                motorBackward();
+            } else {
+                STATUS_LED = 1;
+                motorStop();
+            }
         }
     }
-    */
-
-    adcRead();
 }
 
 // Function for Initialising IOs
@@ -193,6 +191,10 @@ void motorLeft()
 
 float computePitch(int xValue, int yValue, int zValue){
     float pitch = 0;
+
+    xValue = xValue*6 - 440;
+    yValue = yValue*6 - 440;
+    zValue = zValue*6 - 365;
 
     pitch = xValue*xValue + zValue*zValue; //sqaure denominator
     pitch = sqrt(pitch); //Square root denominator
