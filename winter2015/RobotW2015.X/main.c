@@ -23,7 +23,7 @@
 #define LEFT_IR PORTBbits.RB2
 #define RIGHT_IR PORTAbits.RA7
 
-// Left Motor (1 is forward, 2 is backward)
+// Left Motor (2 is forward, 1 is backward)
 #define H_1A PORTBbits.RB1
 #define H_2A PORTAbits.RA3
 
@@ -64,6 +64,8 @@ void main() {
     int angle = 0;
 
     while(1){
+        //motorForward();
+  
         angle = adcRead();
         STATUS_LED = 0;
         if(LEFT_IR == 1 && RIGHT_IR == 0) {
@@ -82,6 +84,7 @@ void main() {
                 motorStop();
             }
         }
+   
     }
 }
 
@@ -148,8 +151,8 @@ void motorStop()
 void motorForward()
 {
     //Left motor
-    H_1A = 1;
-    H_2A = 0;
+    H_1A = 0;
+    H_2A = 1;
 
     //Right motor
     H_3A = 0;
@@ -157,6 +160,17 @@ void motorForward()
 }
 
 void motorBackward()
+{
+    //Left motor
+    H_1A = 1;
+    H_2A = 0;
+
+    //Right motor
+    H_3A = 1;
+    H_4A = 0;
+}
+
+void motorRight()
 {
     //Left motor
     H_1A = 0;
@@ -167,22 +181,11 @@ void motorBackward()
     H_4A = 0;
 }
 
-void motorRight()
-{
-    //Left motor
-    H_1A = 1;
-    H_2A = 0;
-
-    //Right motor
-    H_3A = 1;
-    H_4A = 0;
-}
-
 void motorLeft()
 {
     // Left Motor
-    H_1A = 1;
-    H_2A = 0;
+    H_1A = 0;
+    H_2A = 1;
 
     // Right Motor
     H_3A = 0;
